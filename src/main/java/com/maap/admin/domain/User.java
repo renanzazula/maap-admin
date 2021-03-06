@@ -17,5 +17,4 @@ public class User extends Base implements Serializable {
     private UUID id;
     private String name;
 
-
 }

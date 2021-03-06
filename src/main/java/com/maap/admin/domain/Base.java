@@ -18,8 +18,10 @@ public class Base implements Serializable {
 
     @JsonFormat(pattern = Constants.PATTERN_DATE_FORMAT)
     private Date createOn;
-    private Date updateBy;
+    private String createBy;
+
     @JsonFormat(pattern = Constants.PATTERN_DATE_FORMAT)
     private Date updateOn;
+    private String updateBy;
 
 }
