@@ -27,8 +27,8 @@ public class SwaggerConfig {
     }
 
     private ApiInfo metaData() {
-        String title = "Standard app";
-        String description = "Standard app";
+        String title = "Maap Admin";
+        String description = "Maap app";
         String version = "v1";
         Contact contact = new Contact("Renan Zazula",
                 "", "renan.zazula@gmail.com");

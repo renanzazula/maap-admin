@@ -37,11 +37,11 @@ public class AuditEntity implements Serializable {
     private Date createOnTime;
 
     @LastModifiedBy
-    @Temporal(TemporalType.DATE)
     @Column(name = "updateBy")
-    private Date updateBy;
+    private String updateBy;
 
     @LastModifiedDate
+    @Temporal(TemporalType.DATE)
     @Column(name = "updateOn")
     private Date updateOn;
 

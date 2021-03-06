@@ -1,29 +1,25 @@
-# README #
+Maap-Admin-app
 
-This README would normally document whatever steps are necessary to get your application up and running.
+From Docker image at centos
 
-### What is this repository for? ###
+- To build "docker build -t spring-boot-docker ." with dot
+- To running "docker run -d -p 8080:8080 spring-boot-docker"
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+from maven command line profile local  
+mvnw spring-boot:run -Dmaven.test.skip=true -Dspring-boot.run.profiles=local
 
-### How do I get set up? ###
+#### Api docs:
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+- http://localhost:8080/maap-admin/v2/api-docs
 
-### Contribution guidelines ###
+#### Swagger:
 
-* Writing tests
-* Code review
-* Other guidelines
+- http://localhost:8080/maap-admin/swagger-ui.html#/
 
-### Who do I talk to? ###
+#### Sonnar:
 
-* Repo owner or admin
-* Other community or team contact
+- https://sonarcloud.io/dashboard?id=maap-admin
+
+#### Cicle CI:
+
+- https://app.circleci.com/pipelines/bitbucket/???

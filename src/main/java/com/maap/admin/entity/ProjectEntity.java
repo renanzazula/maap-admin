@@ -2,10 +2,7 @@ package com.maap.admin.entity;
 
 
 import com.maap.admin.enums.StatusEnum;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,14 +10,11 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 
-@Data
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity(name = "project")
-public class ProjectEntity extends BaseAuditEntity {
+public @Data
+class ProjectEntity extends BaseAuditEntity {
 
-	private static final long serialVersionUID = 3098936361791582953L;
+	private static final long serialVersionUID = 1830958044628679550L;
 
 	@Column(name = "name")
 	private String name;
@@ -36,9 +30,9 @@ public class ProjectEntity extends BaseAuditEntity {
 	@Column(name = "status")
 	private StatusEnum status;
 
-	@NotNull
-	@Column(name = "user")
-	private UserEntity userEntity;
+	// @NotNull
+	//@JoinColumn(name = "user_id", referencedColumnName = "id", updatable = false)
+	// private UserEntity user;
 
 	// private ImageEntity imageEntity;
 	// private GalleryEntity galleryEntity;

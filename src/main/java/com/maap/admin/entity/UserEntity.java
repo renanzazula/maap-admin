@@ -1,25 +1,19 @@
 package com.maap.admin.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
-@Data
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity(name = "user")
-public class UserEntity extends BaseAuditEntity implements Serializable {
+public @Data
+class UserEntity extends BaseAuditEntity {
+
+    private static final long serialVersionUID = -4426098122215553995L;
 
     @NotNull
     @Column(name = "name")
     private String name;
-
 
 }
