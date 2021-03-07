@@ -6,7 +6,9 @@ import com.maap.admin.entity.ProjectEntity;
 import com.maap.admin.function.JpaFunctions;
 import com.maap.admin.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Comparator;
 import java.util.List;
@@ -39,6 +41,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @Cacheable(cacheNames = "projectListCache", condition = "#showInventoryOnHand == false")
     public List<Project> findAll() {
         return projectRepository.findAll()
                 .stream()
@@ -47,6 +51,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @Cacheable(cacheNames = "projectCache", key = "#id", condition = "#showInventoryOnHand == false")
     public Project getBy(UUID uuid) throws Exception {
         return JpaFunctions.projectEntityToProjectFunction.apply(projectRepository.findById(uuid).orElseThrow(() -> new Exception("Project not found:")));
     }
