@@ -1,9 +1,6 @@
 package com.maap.admin.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,6 +10,7 @@ import java.util.UUID;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class Gallery extends Base implements Serializable {
 
     private static final long serialVersionUID = -6612762288260227887L;

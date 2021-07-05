@@ -20,14 +20,15 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public void save(User obj) {
+    public User save(User obj) {
         UserEntity userEntity = new UserEntity();
         userRepository.save(userEntity);
+        return null;
     }
 
     @Override
     public User update(UUID uuid, User objToUpdate) throws Exception {
-        UserEntity userEntity = userRepository.findById(uuid).orElseThrow(() -> new Exception("User not found:" + uuid.toString()));
+        UserEntity userEntity = userRepository.findById(uuid).orElseThrow(() -> new Exception("User not found:" + uuid));
         //TODO: set values from new obj
         return JpaFunctions.userEntityToUserFunction.apply(userRepository.save(userEntity));
     }
@@ -47,7 +48,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getBy(UUID uuid) throws Exception {
-        return JpaFunctions.userEntityToUserFunction.apply(userRepository.findById(uuid).orElseThrow(() -> new Exception("User not found:")));
+        return JpaFunctions.userEntityToUserFunction.apply(userRepository.findById(uuid).orElseThrow(() -> new Exception("User not found:" + uuid)));
     }
 
 }

@@ -1,11 +1,14 @@
 package com.maap.admin.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Entity(name = "gallery")
+@EqualsAndHashCode(callSuper = false)
 public @Data
 class GalleryEntity extends BaseAuditEntity {
 
@@ -14,6 +17,14 @@ class GalleryEntity extends BaseAuditEntity {
 	@Column(name = "name")
 	private String name;
 
-	//private List<ImageEntity> imageEntities;
+	@NotNull
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "image_id")
+	private ImageEntity image;
+
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "produto_codigo")
+	private Set<GalleryHasImageEntity> imageHasGallery;
+
 
 }

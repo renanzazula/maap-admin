@@ -7,10 +7,12 @@ INSERT INTO `project` (`id`, `name`, `location`, `explain`, `status`, `create_by
                        `update_by`, `update_on`, `update_on_time`)
 VALUES (RANDOM_UUID(), 'name', 'location', 'exaplain', 'ONLINE', 'createBy', SYSDATE(), CURRENT_TIME(), 'updateBy',
         SYSDATE(), CURRENT_TIME());
+
 INSERT INTO `project` (`id`, `name`, `location`, `explain`, `status`, `create_by`, `create_on`, `create_on_time`,
                        `update_by`, `update_on`, `update_on_time`)
 VALUES (RANDOM_UUID(), 'name', 'location', 'exaplain', 'ONLINE', 'createBy', SYSDATE(), CURRENT_TIME(), 'updateBy',
         SYSDATE(), CURRENT_TIME());
+
 INSERT INTO `project` (`id`, `name`, `location`, `explain`, `status`, `create_by`, `create_on`, `create_on_time`,
                        `update_by`, `update_on`, `update_on_time`)
 VALUES (RANDOM_UUID(), 'name', 'location', 'exaplain', 'ONLINE', 'createBy', SYSDATE(), CURRENT_TIME(), 'updateBy',

@@ -3,6 +3,7 @@ package com.maap.admin.entity;
 
 import com.maap.admin.enums.StatusEnum;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 
 @Entity(name = "project")
+@EqualsAndHashCode(callSuper = false)
 public @Data
 class ProjectEntity extends BaseAuditEntity {
 

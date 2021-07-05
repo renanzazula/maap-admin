@@ -1,12 +1,14 @@
 package com.maap.admin.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
 @Entity(name = "user")
+@EqualsAndHashCode(callSuper = false)
 public @Data
 class UserEntity extends BaseAuditEntity {
 

@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public interface BaseService<T> {
 
-    void save(T obj);
+    T save(T obj);
 
     T update(UUID uuid, T objToUpdate) throws Exception;
 

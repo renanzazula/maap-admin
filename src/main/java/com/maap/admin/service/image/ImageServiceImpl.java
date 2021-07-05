@@ -18,17 +18,25 @@ public class ImageServiceImpl implements ImageService {
     @Autowired
     private ImageRepository imageRepository;
 
-    @Override
-    public void save(Image obj) {
-        ImageEntity imageEntity = new ImageEntity();
-        imageRepository.save(imageEntity);
+    public ImageServiceImpl(ImageRepository imageRepository) {
+        this.imageRepository = imageRepository;
     }
 
     @Override
-    public Image update(UUID uuid, Image objToUpdate) throws Exception {
-        ImageEntity imageEntity = imageRepository.findById(uuid).orElseThrow(() -> new Exception("Image not found:" + uuid.toString()));
-        //TODO: set values from new obj
-        return JpaFunctions.imageEntityToImageFunction.apply(imageRepository.save(imageEntity));
+    public Image save(Image obj) {
+        ImageEntity entity = imageRepository.saveAndFlush(JpaFunctions.imageToImageEntityFunction.apply(obj));
+        return JpaFunctions.imageEntityToImageFunction.apply(entity);
+    }
+
+    @Override
+    public Image update(UUID uuid, Image imgToUpdate) throws Exception {
+        ImageEntity entity = imageRepository.findById(uuid).orElseThrow(() -> new Exception("Image not found:" + uuid));
+        entity.setName(imgToUpdate.getName());
+        entity.setDescription(imgToUpdate.getDescription());
+        entity.setTooltip(imgToUpdate.getTooltip());
+        entity.setSort(imgToUpdate.getSort());
+        //missing byte array
+        return JpaFunctions.imageEntityToImageFunction.apply(imageRepository.saveAndFlush(entity));
     }
 
     @Override
@@ -46,7 +54,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public Image getBy(UUID uuid) throws Exception {
-        return JpaFunctions.imageEntityToImageFunction.apply(imageRepository.findById(uuid).orElseThrow(() -> new Exception("Image not found:")));
+        return JpaFunctions.imageEntityToImageFunction.apply(imageRepository.findById(uuid).orElseThrow(() -> new Exception("Image not found:" + uuid)));
     }
 
 }

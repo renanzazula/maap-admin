@@ -23,14 +23,15 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectRepository projectRepository;
 
     @Override
-    public void save(Project obj) {
+    public Project save(Project obj) {
         ProjectEntity projectEntity = new ProjectEntity();
         projectRepository.save(projectEntity);
+        return null;
     }
 
     @Override
     public Project update(UUID uuid, Project objToUpdate) throws Exception {
-        ProjectEntity projectEntity = projectRepository.findById(uuid).orElseThrow(() -> new Exception("Project not found:" + uuid.toString()));
+        ProjectEntity projectEntity = projectRepository.findById(uuid).orElseThrow(() -> new Exception("Project not found:" + uuid));
         //TODO: set values from new obj
         return JpaFunctions.projectEntityToProjectFunction.apply(projectRepository.save(projectEntity));
     }
@@ -54,7 +55,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Transactional(readOnly = true)
     @Cacheable(cacheNames = "projectCache", key = "#id", condition = "#showInventoryOnHand == false")
     public Project getBy(UUID uuid) throws Exception {
-        return JpaFunctions.projectEntityToProjectFunction.apply(projectRepository.findById(uuid).orElseThrow(() -> new Exception("Project not found:")));
+        return JpaFunctions.projectEntityToProjectFunction.apply(projectRepository.findById(uuid).orElseThrow(() -> new Exception("Project not found:" + uuid)));
     }
 
 }

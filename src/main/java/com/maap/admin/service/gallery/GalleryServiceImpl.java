@@ -19,14 +19,15 @@ public class GalleryServiceImpl implements GalleryService {
     private GalleryRepository galleryRepository;
 
     @Override
-    public void save(Gallery obj) {
+    public Gallery save(Gallery obj) {
         GalleryEntity galleryEntity = new GalleryEntity();
-        galleryRepository.save(galleryEntity);
+        galleryRepository.saveAndFlush(galleryEntity);
+        return null;
     }
 
     @Override
     public Gallery update(UUID uuid, Gallery objToUpdate) throws Exception {
-        GalleryEntity galleryEntity = galleryRepository.findById(uuid).orElseThrow(() -> new Exception("Gallery not found:" + uuid.toString()));
+        GalleryEntity galleryEntity = galleryRepository.findById(uuid).orElseThrow(() -> new Exception("Gallery not found:" + uuid));
         //TODO: set values from new obj
         return JpaFunctions.galleryEntityToGalleryFunction.apply(galleryRepository.save(galleryEntity));
     }
@@ -46,6 +47,6 @@ public class GalleryServiceImpl implements GalleryService {
 
     @Override
     public Gallery getBy(UUID uuid) throws Exception {
-        return JpaFunctions.galleryEntityToGalleryFunction.apply(galleryRepository.findById(uuid).orElseThrow(() -> new Exception("Gallery not found:")));
+        return JpaFunctions.galleryEntityToGalleryFunction.apply(galleryRepository.findById(uuid).orElseThrow(() -> new Exception("Gallery not found:" + uuid)));
     }
 }
