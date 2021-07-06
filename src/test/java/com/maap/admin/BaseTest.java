@@ -2,7 +2,9 @@ package com.maap.admin;
 
 import com.maap.admin.domain.Gallery;
 import com.maap.admin.domain.Image;
+import com.maap.admin.domain.Project;
 import com.maap.admin.domain.User;
+import com.maap.admin.enums.StatusEnum;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,6 +47,19 @@ public class BaseTest {
         user.setId(UUID.randomUUID());
         user.setName(NAME);
         return user;
+    }
+
+
+    protected Project newProject() throws IOException {
+        Project project = new Project();
+        project.setName("Name");
+        project.setLocation("Location");
+        project.setImage(newImage());
+        project.setExplain("Explain");
+        project.setStatus(StatusEnum.ONLINE.name());
+        project.setGallery(newGallery());
+        project.setUser(newUser());
+        return project;
     }
 
     protected byte[] getImage() throws IOException {

@@ -33,13 +33,6 @@ public class ProjectServiceImplTestIT extends BaseTest {
         service = new ProjectServiceImpl(repository);
         project = new Project();
 
-        project.setName("Name");
-        project.setLocation("Location");
-        project.setImage(newImage());
-        project.setExplain("Explain");
-        project.setStatus(StatusEnum.ONLINE.name());
-        project.setGallery(newGallery());
-        project.setUser(newUser());
 
     }
 
