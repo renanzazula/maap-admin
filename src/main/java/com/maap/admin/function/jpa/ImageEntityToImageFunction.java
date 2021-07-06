@@ -8,14 +8,14 @@ import java.util.function.Function;
 public class ImageEntityToImageFunction implements Function<ImageEntity, Image> {
 
     @Override
-    public Image apply(ImageEntity entity) {
-        Image image = new Image();
-        image.setId(entity.getId());
-        image.setName(entity.getName());
-        image.setDescription(entity.getDescription());
-        image.setTooltip(entity.getTooltip());
-        image.setSort(entity.getSort());
-        image.setImage(image.getImage());
-        return image;
+    public Image apply(ImageEntity input) {
+        Image output = new Image();
+        output.setId(input.getId());
+        output.setName(input.getName());
+        output.setDescription(input.getDescription());
+        output.setTooltip(input.getTooltip());
+        output.setSort(input.getSort());
+        output.setImage(output.getImage());
+        return output;
     }
 }

@@ -5,6 +5,8 @@ import com.maap.admin.domain.Project;
 import com.maap.admin.entity.ProjectEntity;
 import com.maap.admin.function.JpaFunctions;
 import com.maap.admin.repository.ProjectRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProjectServiceImpl implements ProjectService {
 
 

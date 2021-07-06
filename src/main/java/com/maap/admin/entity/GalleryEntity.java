@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity(name = "gallery")
@@ -17,14 +16,10 @@ class GalleryEntity extends BaseAuditEntity {
 	@Column(name = "name")
 	private String name;
 
-	@NotNull
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "image_id")
-	private ImageEntity image;
+	@Column(name = "description")
+	private String description;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "produto_codigo")
-	private Set<GalleryHasImageEntity> imageHasGallery;
-
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<ImageEntity> images;
 
 }

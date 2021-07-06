@@ -1,35 +1,47 @@
 package com.maap.admin.service.gallery;
 
 import com.maap.admin.domain.Gallery;
+import com.maap.admin.domain.Image;
 import com.maap.admin.entity.GalleryEntity;
+import com.maap.admin.entity.ImageEntity;
 import com.maap.admin.function.JpaFunctions;
 import com.maap.admin.repository.GalleryRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
+@NoArgsConstructor
 public class GalleryServiceImpl implements GalleryService {
 
     @Autowired
     private GalleryRepository galleryRepository;
 
     @Override
-    public Gallery save(Gallery obj) {
+    public Gallery save(Gallery gallery) {
         GalleryEntity galleryEntity = new GalleryEntity();
-        galleryRepository.saveAndFlush(galleryEntity);
-        return null;
+        galleryEntity.setName(gallery.getName());
+        galleryEntity.setDescription(gallery.getDescription());
+        if (gallery.getImages() != null) {
+            Set<ImageEntity> images = new HashSet<>();
+            for (Image image : gallery.getImages()) {
+                images.add(JpaFunctions.imageToImageEntityFunction.apply(image));
+            }
+            galleryEntity.setImages(images);
+        }
+        return JpaFunctions.galleryEntityToGalleryFunction.apply(galleryRepository.saveAndFlush(galleryEntity));
     }
 
     @Override
     public Gallery update(UUID uuid, Gallery objToUpdate) throws Exception {
-        GalleryEntity galleryEntity = galleryRepository.findById(uuid).orElseThrow(() -> new Exception("Gallery not found:" + uuid));
-        //TODO: set values from new obj
-        return JpaFunctions.galleryEntityToGalleryFunction.apply(galleryRepository.save(galleryEntity));
+        GalleryEntity found = galleryRepository.findById(uuid).orElseThrow(() -> new Exception("Gallery not found:" + uuid));
+
+        return JpaFunctions.galleryEntityToGalleryFunction.apply(galleryRepository.save(found));
     }
 
     @Override

@@ -1,8 +1,9 @@
-package com.maap.admin.service.image;
+package com.maap.admin.service.gallery;
 
 import com.maap.admin.BaseTest;
+import com.maap.admin.domain.Gallery;
 import com.maap.admin.domain.Image;
-import com.maap.admin.repository.ImageRepository;
+import com.maap.admin.repository.GalleryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,74 +21,78 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class ImageServiceImplTestIT extends BaseTest {
+public class GalleryServiceImplTestIT extends BaseTest {
 
     @Autowired
-    private ImageRepository repository;
-    private ImageService service;
-    private Image image;
+    private GalleryRepository repository;
+    private GalleryService service;
+    private Gallery gallery;
+
 
     @BeforeEach
     public void setUp() throws IOException {
-        service = new ImageServiceImpl(repository);
-        image = newImage();
-    }
+        service = new GalleryServiceImpl(repository);
+        gallery = new Gallery();
+        gallery.setDescription(DESCRIPTION);
 
+        List<Image> images = new ArrayList<>();
+        images.add(newImage());
+        images.add(newImage());
+        images.add(newImage());
+        images.add(newImage());
+        gallery.setImages(images);
+
+    }
 
     @Test
     public void save() throws Exception {
-        Image saved = service.save(image);
+        Gallery saved = service.save(gallery);
         assertNotNull(saved);
 
-        Image found = service.getBy(saved.getId());
+        Gallery found = service.getBy(saved.getId());
         assertEquals(found.getId(), saved.getId());
         assertEquals(found.getName(), saved.getName());
         assertEquals(found.getDescription(), saved.getDescription());
-        assertEquals(found.getTooltip(), saved.getTooltip());
-        assertEquals(found.getSort(), saved.getSort());
+        assertFalse(found.getImages().isEmpty());
     }
 
     @Test
     public void update() throws Exception {
-        Image saved = service.save(image);
+        Gallery saved = service.save(gallery);
 
-        Image foundToUpdate = service.getBy(saved.getId());
+        Gallery foundToUpdate = service.getBy(saved.getId());
         foundToUpdate.setName("name updated");
         foundToUpdate.setDescription("description updated");
-        foundToUpdate.setTooltip("Tooltip updated");
-        foundToUpdate.setSort(1);
-        foundToUpdate.setImage(getImage());
 
-        Image updated = service.update(saved.getId(), foundToUpdate);
+        Gallery updated = service.update(saved.getId(), foundToUpdate);
         assertEquals(foundToUpdate.getId(), updated.getId());
         assertEquals(foundToUpdate.getName(), updated.getName());
         assertEquals(foundToUpdate.getDescription(), updated.getDescription());
-        assertEquals(foundToUpdate.getTooltip(), updated.getTooltip());
-        assertEquals(foundToUpdate.getSort(), updated.getSort());
+
 
     }
 
     @Test
     public void deleteById() {
-        Image saved = service.save(image);
+        Gallery saved = service.save(gallery);
         assertNotNull(saved.getId());
         service.deleteById(saved.getId());
-        Exception thrown = assertThrows(Exception.class, () -> service.getBy(saved.getId()), "Image not found:");
-        assertTrue(thrown.getMessage().contains("Image not found:"));
+        Exception thrown = assertThrows(Exception.class, () -> service.getBy(saved.getId()), "gallery not found:");
+        assertTrue(thrown.getMessage().contains("gallery not found:"));
     }
 
     @Test
     public void findAll() {
-        service.save(image);
-        List<Image> imageList = service.findAll();
-        assertFalse(imageList.isEmpty());
+        service.save(gallery);
+        List<Gallery> galleryList = service.findAll();
+        assertFalse(galleryList.isEmpty());
     }
 
     @Test
     public void getBy() throws Exception {
-        Image saved = service.save(image);
-        Image image = service.getBy(saved.getId());
-        assertNotNull(image);
+        Gallery saved = service.save(gallery);
+        Gallery gallery = service.getBy(saved.getId());
+        assertNotNull(gallery);
     }
 
 }

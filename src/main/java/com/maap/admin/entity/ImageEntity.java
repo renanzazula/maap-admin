@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity(name = "image")
@@ -29,5 +30,8 @@ class ImageEntity extends BaseAuditEntity {
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] image;
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<GalleryEntity> galleries;
 
 }

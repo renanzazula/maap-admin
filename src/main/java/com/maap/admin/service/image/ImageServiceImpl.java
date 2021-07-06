@@ -4,6 +4,8 @@ import com.maap.admin.domain.Image;
 import com.maap.admin.entity.ImageEntity;
 import com.maap.admin.function.JpaFunctions;
 import com.maap.admin.repository.ImageRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +15,12 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
+@NoArgsConstructor
 public class ImageServiceImpl implements ImageService {
 
     @Autowired
     private ImageRepository imageRepository;
-
-    public ImageServiceImpl(ImageRepository imageRepository) {
-        this.imageRepository = imageRepository;
-    }
 
     @Override
     public Image save(Image obj) {
@@ -30,12 +30,14 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public Image update(UUID uuid, Image imgToUpdate) throws Exception {
+        // check relationship with gallery
+
         ImageEntity entity = imageRepository.findById(uuid).orElseThrow(() -> new Exception("Image not found:" + uuid));
         entity.setName(imgToUpdate.getName());
         entity.setDescription(imgToUpdate.getDescription());
         entity.setTooltip(imgToUpdate.getTooltip());
         entity.setSort(imgToUpdate.getSort());
-        //missing byte array
+        entity.setImage(imgToUpdate.getImage());
         return JpaFunctions.imageEntityToImageFunction.apply(imageRepository.saveAndFlush(entity));
     }
 

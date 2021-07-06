@@ -15,6 +15,8 @@ public class Gallery extends Base implements Serializable {
 
     private static final long serialVersionUID = -6612762288260227887L;
     private UUID id;
+    private String name;
+    private String description;
     private List<Image> images;
 
 }

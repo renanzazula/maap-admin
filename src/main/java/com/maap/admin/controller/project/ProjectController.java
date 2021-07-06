@@ -1,4 +1,4 @@
-package com.maap.admin.controller;
+package com.maap.admin.controller.project;
 
 import com.maap.admin.domain.Project;
 import com.maap.admin.service.project.ProjectService;
