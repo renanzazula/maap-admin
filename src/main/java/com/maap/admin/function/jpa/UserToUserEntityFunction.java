@@ -5,11 +5,11 @@ import com.maap.admin.entity.UserEntity;
 
 import java.util.function.Function;
 
-public class UserEntityToUserFunction implements Function<UserEntity, User> {
+public class UserToUserEntityFunction implements Function<User, UserEntity> {
 
     @Override
-    public User apply(UserEntity input) {
-        User output = new User();
+    public UserEntity apply(User input) {
+        UserEntity output = new UserEntity();
         output.setId(input.getId());
         output.setName(input.getName());
         return output;

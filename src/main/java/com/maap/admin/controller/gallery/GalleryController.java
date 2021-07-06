@@ -1,7 +1,7 @@
-package com.maap.admin.controller.project;
+package com.maap.admin.controller.gallery;
 
-import com.maap.admin.domain.Project;
-import com.maap.admin.service.project.ProjectService;
+import com.maap.admin.domain.Gallery;
+import com.maap.admin.service.gallery.GalleryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -13,34 +13,34 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
 
-@Api(value = "Project Controller", tags = "project")
+@Api(value = "Gallery Controller", tags = "gallery")
 @RestController
-@RequestMapping(ProjectController.BASE_URL)
+@RequestMapping(GalleryController.BASE_URL)
 @AllArgsConstructor
-public class ProjectController {
+public class GalleryController {
 
-    public static final String BASE_URL = "/private/v1/project";
+    public static final String BASE_URL = "/private/v1/gallery";
 
-    private final ProjectService service;
+    private final GalleryService service;
 
     @GetMapping({""})
     @ApiOperation(value = "get all projects")
-    public ResponseEntity<List<Project>> get() {
-        List<Project> list = service.findAll();
+    public ResponseEntity<List<Gallery>> get() {
+        List<Gallery> list = service.findAll();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @GetMapping({"/{id}"})
-    @ApiOperation(value = "get project by id")
-    public ResponseEntity<Project> getBy(@PathVariable @NotNull UUID id) throws Exception {
+    @ApiOperation(value = "get gallery by id")
+    public ResponseEntity<Gallery> getBy(@PathVariable @NotNull UUID id) throws Exception {
         return new ResponseEntity<>(service.getBy(id), HttpStatus.OK);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @ApiOperation(value = "Save project")
-    public ResponseEntity<Project> save(@RequestBody @NotNull Project project) {
-        service.save(project);
+    @ApiOperation(value = "Save gallery")
+    public ResponseEntity<Gallery> save(@RequestBody @NotNull Gallery gallery) {
+        service.save(gallery);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -53,8 +53,8 @@ public class ProjectController {
 
     @PutMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Project> update(@PathVariable @NotNull UUID id, @RequestBody @NotNull Project project) throws Exception {
-        return new ResponseEntity<>(service.update(id, project), HttpStatus.OK);
+    public ResponseEntity<Gallery> update(@PathVariable @NotNull UUID id, @RequestBody @NotNull Gallery gallery) throws Exception {
+        return new ResponseEntity<>(service.update(id, gallery), HttpStatus.OK);
     }
 
 }

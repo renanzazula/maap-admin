@@ -5,10 +5,7 @@ import com.maap.admin.enums.StatusEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity(name = "project")
@@ -32,11 +29,16 @@ class ProjectEntity extends BaseAuditEntity {
 	@Column(name = "status")
 	private StatusEnum status;
 
-	// @NotNull
-	//@JoinColumn(name = "user_id", referencedColumnName = "id", updatable = false)
-	// private UserEntity user;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "image_id", referencedColumnName = "id")
+	private ImageEntity image;
 
-	// private ImageEntity imageEntity;
-	// private GalleryEntity galleryEntity;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "gallery_id", referencedColumnName = "id")
+	private GalleryEntity gallery;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	private UserEntity user;
 
 }

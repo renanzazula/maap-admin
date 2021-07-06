@@ -1,10 +1,15 @@
 package com.maap.admin;
 
+import com.maap.admin.domain.Gallery;
 import com.maap.admin.domain.Image;
+import com.maap.admin.domain.User;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class BaseTest {
 
@@ -19,6 +24,27 @@ public class BaseTest {
         image.setSort(0);
         image.setImage(getImage());
         return image;
+    }
+
+    protected Gallery newGallery() throws IOException {
+        Gallery gallery = new Gallery();
+        gallery.setDescription(DESCRIPTION);
+
+        List<Image> images = new ArrayList<>();
+        images.add(newImage());
+        images.add(newImage());
+        images.add(newImage());
+        images.add(newImage());
+        gallery.setImages(images);
+        return gallery;
+    }
+
+
+    protected User newUser() {
+        User user = new User();
+        user.setId(UUID.randomUUID());
+        user.setName(NAME);
+        return user;
     }
 
     protected byte[] getImage() throws IOException {

@@ -40,8 +40,16 @@ public class GalleryServiceImpl implements GalleryService {
     @Override
     public Gallery update(UUID uuid, Gallery objToUpdate) throws Exception {
         GalleryEntity found = galleryRepository.findById(uuid).orElseThrow(() -> new Exception("Gallery not found:" + uuid));
-
-        return JpaFunctions.galleryEntityToGalleryFunction.apply(galleryRepository.save(found));
+        found.setName(objToUpdate.getName());
+        found.setDescription(objToUpdate.getDescription());
+        if (objToUpdate.getImages() != null) {
+            Set<ImageEntity> images = new HashSet<>();
+            for (Image image : objToUpdate.getImages()) {
+                images.add(JpaFunctions.imageToImageEntityFunction.apply(image));
+            }
+            found.setImages(images);
+        }
+        return JpaFunctions.galleryEntityToGalleryFunction.apply(galleryRepository.saveAndFlush(found));
     }
 
     @Override
