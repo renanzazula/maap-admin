@@ -2,14 +2,18 @@ package com.maap.admin.controller.image;
 
 import com.maap.admin.domain.Image;
 import com.maap.admin.service.image.ImageService;
+import com.maap.admin.util.FileUploadUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,12 +26,12 @@ public class ImageController {
     public static final String BASE_URL = "/private/v1/image";
 
     private final ImageService service;
+    private final HttpSession session;
 
     @GetMapping({""})
     @ApiOperation(value = "get all Images")
     public ResponseEntity<List<Image>> get() {
-        List<Image> list = service.findAll();
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
     @GetMapping({"/{id}"})
@@ -39,9 +43,8 @@ public class ImageController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Save Image")
-    public ResponseEntity<Image> save(@RequestBody @NotNull Image Image) {
-        service.save(Image);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<Image> save(@RequestBody @NotNull Image image) {
+        return new ResponseEntity<>(service.save(image), HttpStatus.CREATED);
     }
 
     @DeleteMapping({"/{id}"})
@@ -56,6 +59,15 @@ public class ImageController {
     public ResponseEntity<Image> update(@PathVariable @NotNull UUID id, @RequestBody @NotNull Image Image) throws Exception {
         return new ResponseEntity<>(service.update(id, Image), HttpStatus.OK);
     }
+
+    @PostMapping("/upload")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Image> upload(@RequestBody @NotNull Image image, @RequestPart("file") MultipartFile file) throws IOException {
+        image.setImage(FileUploadUtil.compressBytes(file.getBytes()));
+        image.setType(file.getContentType());
+        return new ResponseEntity<>(service.save(image), HttpStatus.OK);
+    }
+
 
 }
 

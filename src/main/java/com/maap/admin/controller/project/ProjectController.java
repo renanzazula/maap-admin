@@ -26,8 +26,7 @@ public class ProjectController {
     @GetMapping({""})
     @ApiOperation(value = "get all projects")
     public ResponseEntity<List<Project>> get() {
-        List<Project> list = service.findAll();
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
     @GetMapping({"/{id}"})

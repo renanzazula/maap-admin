@@ -26,8 +26,7 @@ public class GalleryController {
     @GetMapping({""})
     @ApiOperation(value = "get all projects")
     public ResponseEntity<List<Gallery>> get() {
-        List<Gallery> list = service.findAll();
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
     @GetMapping({"/{id}"})
@@ -40,8 +39,7 @@ public class GalleryController {
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Save gallery")
     public ResponseEntity<Gallery> save(@RequestBody @NotNull Gallery gallery) {
-        service.save(gallery);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(service.save(gallery), HttpStatus.CREATED);
     }
 
     @DeleteMapping({"/{id}"})

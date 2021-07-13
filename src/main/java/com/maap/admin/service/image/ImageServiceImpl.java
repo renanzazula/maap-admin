@@ -30,8 +30,6 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public Image update(UUID uuid, Image imgToUpdate) throws Exception {
-        // check relationship with gallery
-
         ImageEntity entity = imageRepository.findById(uuid).orElseThrow(() -> new Exception("Image not found:" + uuid));
         entity.setName(imgToUpdate.getName());
         entity.setDescription(imgToUpdate.getDescription());

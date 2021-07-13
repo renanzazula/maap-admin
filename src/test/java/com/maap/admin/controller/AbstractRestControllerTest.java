@@ -9,7 +9,7 @@ public abstract class AbstractRestControllerTest extends BaseTest {
         try {
             String output = new ObjectMapper().writeValueAsString(obj);
 
-            //System.out.println(output);
+            System.out.println(output);
 
             return output;
         } catch (Exception e) {

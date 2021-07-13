@@ -15,6 +15,7 @@ public class Image extends Base implements Serializable {
     private static final long serialVersionUID = -6612762288260227887L;
     private UUID id;
     private String name;
+    private String type;
     private String description;
     private String tooltip;
     private long sort;

@@ -17,6 +17,9 @@ class ImageEntity extends BaseAuditEntity {
 	@Column(name = "name")
 	private String name;
 
+	@Column(name = "type")
+	private String type;
+
 	@Column(name = "description")
 	private String description;
 
@@ -26,7 +29,7 @@ class ImageEntity extends BaseAuditEntity {
 	@Column(name = "sort")
 	private long sort;
 
-	@Column(name = "image", nullable = false)
+	@Column(name = "image")
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] image;

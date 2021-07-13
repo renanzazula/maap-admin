@@ -33,10 +33,10 @@ public class BaseTest {
         gallery.setDescription(DESCRIPTION);
 
         List<Image> images = new ArrayList<>();
-        images.add(newImage());
-        images.add(newImage());
-        images.add(newImage());
-        images.add(newImage());
+//        images.add(newImage());
+//        images.add(newImage());
+//        images.add(newImage());
+//        images.add(newImage());
         gallery.setImages(images);
         return gallery;
     }
